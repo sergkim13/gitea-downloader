@@ -5,6 +5,7 @@ import math
 import aiofiles
 import tqdm.asyncio
 
+
 async def download_files_from_gitea_repository(
         gitea_domain: str,
         repository_owner: str,
@@ -36,8 +37,8 @@ async def download_files_from_gitea_repository(
 
 async def get_files_list(
         session: ClientSession,
-        url: str, params:
-        dict = None
+        url: str, 
+        params: dict = None,
 ) -> list[dict]:
     '''
     Send request to gitea API and get list of repository's files.

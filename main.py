@@ -1,10 +1,10 @@
 import asyncio
 import tempfile
 
-from radium_assignment.download_utils import (
+from gitea_downloader.download_utils import (
     download_files_from_gitea_repository
 )
-from radium_assignment.hash_utils import count_hashes
+from gitea_downloader.hash_utils import count_hashes
 
 
 GITEA_DOMAIN = 'radium'
@@ -17,6 +17,7 @@ TMP_DIRECTORY_NAME = 'tmp'
 
 async def main() -> None:
     '''Script downloads files from gitea repository
+    into temporary directory
     and count hash for each file.'''
 
     print('Start downloading files..')
