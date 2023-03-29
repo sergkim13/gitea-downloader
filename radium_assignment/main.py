@@ -1,7 +1,6 @@
 import asyncio
 from pathlib import Path
 from aiohttp import ClientSession
-import time
 import base64
 import hashlib
 from pathlib import PurePath
@@ -27,7 +26,7 @@ def chunked(lst: list, chunks_count: int) -> list[list]:
     return [lst[chunk:chunk+chunk_size] for chunk in range(0, len(lst), chunk_size)]
 
 
-async def download_file_and_get_hash(session: ClientSession, path: str | Path, url: str):
+async def download_file_and_get_hash(session: ClientSession, path: str | PurePath, url: str):
 
     async with session.get(url) as response:
         answer = await response.json()
@@ -57,11 +56,10 @@ async def download_chunk_files(session, chunk, directory):
 
 
 async def async_download(
-    session: ClientSession, lst: list[dict], chunks_count: int, directory: Path | str = 'tmp'
+    session: ClientSession, lst: list[dict], chunks_count: int, directory: PurePath | str = 'tmp'
 ):
     tasks = []
     for chunk in chunked(lst, chunks_count):
-        print('Длина ', len(chunked(lst, chunks_count)))
         tasks.append(download_chunk_files(session, chunk, directory))
 
     await asyncio.gather(*tasks)
@@ -71,7 +69,7 @@ async def count_hash(directory):
     items_generator = Path(directory).rglob('*')
     for item in items_generator:
         if Path(item).is_file():
-            with open(Path(item), 'rb') as f:
+            with open(PurePath(item), 'rb') as f:
                 file_hash = hashlib.sha256()
                 file_hash.update(f.read())
                 print(f'Хэш-сумма файла {item}: {file_hash.hexdigest()}')
@@ -82,7 +80,7 @@ async def download_files_from_gitea_repository(
         repository_owner: str,
         repository_name: str,
         branch_or_commit_sha: str,
-        directory: Path | str = 'tmp',
+        directory: PurePath | str = 'tmp',
         ) -> None:
 
     path = Path(directory)
@@ -96,16 +94,18 @@ async def download_files_from_gitea_repository(
         files_list = await get_files_list(session, url, params)
         await async_download(session, files_list, ASYNC_TASKS_COUNT, directory)
 
-    await count_hash(directory)
 
 async def main():
+    print('Начинаю скачивание файлов..')
     await download_files_from_gitea_repository(
         gitea_domain=GITEA_DOMAIN,
         repository_owner=REPOSITORY_OWNER,
         repository_name=REPOSITORY_NAME,
         branch_or_commit_sha=BRANCH,
     )
-
+    print('Скачивание завершено..')
+    print('Считаю хэш-суммы..')
+    await count_hash(directory=TMP_DIRECTORY_NAME)
 
 if __name__ == '__main__':
     asyncio.run(main())

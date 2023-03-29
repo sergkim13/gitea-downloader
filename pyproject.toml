@@ -4,12 +4,25 @@ version = "0.1.0"
 description = ""
 authors = ["Sergey Kim <<sergkim7@gmail.com>>"]
 readme = "README.md"
-packages = [{include = "radius_assignment"}]
+packages = [{include = "radium_assignment"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
 aiohttp = "^3.8.4"
+nitpick = "^0.33.0"
+wemake-python-styleguide = "^0.17.0"
 
+[tool.nitpick]
+style = [
+  "https://gitea.radium.group/radium/project-configuration/raw/branch/master/nitpick/all.toml",
+  "https://gitea.radium.group/radium/project-configuration/raw/branch/master/nitpick/darglint.toml",
+  "https://gitea.radium.group/radium/project-configuration/raw/branch/master/nitpick/editorconfig.toml",
+  "https://gitea.radium.group/radium/project-configuration/raw/branch/master/nitpick/file-structure.toml",
+  "https://gitea.radium.group/radium/project-configuration/raw/branch/master/nitpick/flake8.toml",
+  "https://gitea.radium.group/radium/project-configuration/raw/branch/master/nitpick/isort.toml",
+  "https://gitea.radium.group/radium/project-configuration/raw/branch/master/nitpick/pytest.toml",
+  "https://gitea.radium.group/radium/project-configuration/raw/branch/master/nitpick/styleguide.toml",
+]
 
 [build-system]
 requires = ["poetry-core"]
