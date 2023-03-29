@@ -1,12 +1,14 @@
 import json
 from http import HTTPStatus
+
 from aiohttp import ClientSession
+
 from tests.constants import (
-    FAKE_FILES_DICT,
     FAKE_FILE_1,
     FAKE_FILE_2,
     FAKE_FILE_3,
     FAKE_FILE_4,
+    FAKE_FILES_DICT,
 )
 
 

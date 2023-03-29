@@ -1,23 +1,22 @@
+import json
 import sys
 from contextlib import contextmanager
-
-
-
-import pytest_asyncio
-from pytest import MonkeyPatch
-from tests.mocks import FakeSession, MockClientResponse
 from http import HTTPStatus
-import json
+
+import pytest
+import pytest_asyncio
 from aiohttp import ClientSession
+from pytest import MonkeyPatch
+
 from tests.constants import (
-    FAKE_FILES_DICT,
-    FAKE_FILES_LIST,
     FAKE_FILE_1,
     FAKE_FILE_2,
     FAKE_FILE_3,
     FAKE_FILE_4,
+    FAKE_FILES_DICT,
+    FAKE_FILES_LIST,
 )
-import pytest
+from tests.mocks import FakeSession, MockClientResponse
 
 
 @pytest_asyncio.fixture()

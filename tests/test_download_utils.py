@@ -1,12 +1,14 @@
-from aiohttp import ClientSession
+from pathlib import Path
+
 import pytest
+from aiohttp import ClientSession
+
 from gitea_downloader.download_utils import (
-    download_files_from_gitea_repository,
-    get_files_list,
     check_and_create_directory,
     chunked,
-    )
-from pathlib import Path
+    download_files_from_gitea_repository,
+    get_files_list,
+)
 from tests.constants import FAKE_FILES_LIST
 
 
@@ -19,7 +21,6 @@ async def test_download_files_from_gitea_repository(tmp_path, fake_session):
         repository_owner='test',
         repository_name='test',
         branch_or_commit_sha='test',
-        async_tasks_count=3,
         directory=path,
     )
     assert path.exists()

@@ -1,39 +1,42 @@
+"""
+Gitea-downloader script.
+
+Script which downloads files of given gitea repository,
+save it into temporary directory
+and count hash for each file.
+"""
+
+
 import asyncio
 import tempfile
 
 from gitea_downloader.download_utils import (
-    download_files_from_gitea_repository
+    download_files_from_gitea_repository,
 )
 from gitea_downloader.hash_utils import count_hashes
-
+from gitea_downloader.logger_utils import logger
 
 GITEA_DOMAIN = 'radium'
 REPOSITORY_OWNER = 'radium'
 REPOSITORY_NAME = 'project-configuration'
 BRANCH = 'HEAD'
-ASYNC_TASKS_COUNT = 3  # В соответствии с условиями задания
-TMP_DIRECTORY_NAME = 'tmp'
 
 
 async def main() -> None:
-    '''Script downloads files from gitea repository
-    into temporary directory
-    and count hash for each file.'''
-
-    print('Start downloading files..')
+    """Run main script function."""
+    logger.info('Start downloading files..')
     with tempfile.TemporaryDirectory() as temp_dir:
         await download_files_from_gitea_repository(
             gitea_domain=GITEA_DOMAIN,
             repository_owner=REPOSITORY_OWNER,
             repository_name=REPOSITORY_NAME,
             branch_or_commit_sha=BRANCH,
-            async_tasks_count=ASYNC_TASKS_COUNT,
             directory=temp_dir,
         )
-        print('Downloading is completed..')
-        print('Counting hash..')
+        logger.info('Downloading is completed..')
+        logger.info('Counting hash..')
         await count_hashes(directory=temp_dir)
-        print('Finish.')
+        logger.info('Finish.')
 
 
 if __name__ == '__main__':

@@ -1,15 +1,27 @@
-from pathlib import Path
+"""
+Hash utils module.
+
+Contains function for counting hash of files in given directory recursively.
+"""
 import hashlib
-from pathlib import PurePath
+from pathlib import Path, PurePath
+
 import aiofiles
+
+from gitea_downloader.logger_utils import logger
 
 
 async def count_hashes(directory: PurePath) -> None:
-    '''Count hash for each file in given directory.'''
-    items_generator = Path(directory).rglob('*')
-    for item in items_generator:
-        if Path(item).is_file():
-            async with aiofiles.open(PurePath(item), 'rb') as f:
+    """Count hash for each file in given directory."""
+    elements = Path(directory).rglob('*')
+    for element in elements:
+        if Path(element).is_file():
+            async with aiofiles.open(PurePath(element), 'rb') as fp:
                 file_hash = hashlib.sha256()
-                file_hash.update(await f.read())
-                print(f'Хэш-сумма файла {item}: {file_hash.hexdigest()}')
+                file_hash.update(await fp.read())
+                logging_message = (
+                    'Хэш-сумма файла {el}: {hash}'.format(
+                        el=element, hash=file_hash.hexdigest(),
+                    ),
+                )
+                logger.info(logging_message)
