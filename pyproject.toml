@@ -11,6 +11,8 @@ python = "^3.9"
 aiohttp = "^3.8.4"
 nitpick = "^0.33.0"
 wemake-python-styleguide = "^0.17.0"
+aiofiles = "^23.1.0"
+tqdm = "^4.65.0"
 
 [tool.poetry.group.dev.dependencies]
 wemake-python-styleguide = "^0.17.0"
