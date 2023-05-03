@@ -1,6 +1,6 @@
 # Gitea-downloader
 
-[![Actions Status](https://github.com/sergkim13/gitea_downloader/actions/workflows/project_ci.yml/badge.svg)](https://github.com/sergkim13/gitea_downloader/actions/workflows/project_ci.yml)
+[![Actions Status](https://github.com/sergkim13/gitea-downloader/actions/workflows/project_ci.yml/badge.svg)](https://github.com/sergkim13/gitea-downloader/actions/workflows/project_ci.yml)
 [![Maintainability](https://api.codeclimate.com/v1/badges/b07c26e3c7a206397066/maintainability)](https://codeclimate.com/github/sergkim13/gitea_downloader/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/b07c26e3c7a206397066/test_coverage)](https://codeclimate.com/github/sergkim13/gitea_downloader/test_coverage)
 
@@ -16,7 +16,7 @@ This script downloads in async mode files from given gitea repository, save it t
 3. `Make` utile
 
 ### **Install**:
-1. Clone repository: https://github.com/sergkim13/gitea_downloader.git
+1. Clone repository: https://github.com/sergkim13/gitea-downloader
 2. Type: `make instal`
 
 ### **Usage**:
